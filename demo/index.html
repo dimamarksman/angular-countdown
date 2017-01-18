@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Angular Countdown Example</title>
+  <!-- Bootstrap is NOT required, it's just here to make the demo look better -->
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Include AngularJS -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+  <!-- Include EventEmitter -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/EventEmitter/5.1.0/EventEmitter.js"></script>
+  <!-- Include the Countdown Module -->
+  <script src="./angular-countdown.js"></script>
+  <!-- define your app and make it depend on vcRecaptcha module -->
+  <script>
+    var app = angular.module('app', ['tkdCountdown']);
+    app.controller('ctrl', function ($scope) {
+      console.log("this is your app's controller");
+
+    });
+
+  </script>
+</head>
+
+<body>
+  <div class="container" ng-app="app" ng-controller="ctrl">
+    <h1>VividCortex reCaptcha Directive Example</h1>
+    <p>
+      This the <b>recommended</b> way of using the reCaptcha directive. Instead of using ng-model to get the challenge and
+      response, you use a service. This way it's safer because we don't depend on a timeout hack that we are currently using
+      in the directive.
+    </p>
+  </div>
+</body>
+
+</html>
