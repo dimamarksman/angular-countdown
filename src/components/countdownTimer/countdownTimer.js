@@ -1,13 +1,16 @@
+/*
+* Simple countdown.
+*/
 (function (angular) {
   'use strict';
 
   function countdownTimer() {
     return {
       restrict: 'AE',
-      templateUrl: 'app/countdown/components/countdownTimer/countdown-timer.tmpl.html',
-      require: 'countdownModel',
-      link: function (scope, element, attr, countdownModel) {
-        var $counterEl = element.find('.item-value'),
+      templateUrl: 'src/components/countdownTimer/countdown-timer.tmpl.html',
+      require: 'tkdCountdownModel',
+      link: function (scope, $element, attr, countdownModel) {
+        var $counterEl = angular.element($element[0].querySelector('.item-value')),
           DAY = 'day',
           DAYS = 'days',
           HOUR = 'hour',
@@ -42,6 +45,6 @@
     };
   }
 
-  angular.module('countdown').directive('countdownTimer', countdownTimer);
+  angular.module('tkdCountdown').directive('tkdCountdownTimer', countdownTimer);
 
 })(window.angular);

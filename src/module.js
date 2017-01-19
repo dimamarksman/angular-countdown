@@ -1,6 +1,10 @@
-(function (angular) {
-	'use strict';
+/*
+ * tkdCountdown Module Definition
+ */
 
-	angular.module('tkdCountdown', []);
+(function (angular) {
+  'use strict';
+
+  angular.module('tkdCountdown', []);
 
 })(window.angular);

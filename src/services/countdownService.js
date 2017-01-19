@@ -1,14 +1,17 @@
+/*
+ * СountdownService
+ */
+
 (function (angular) {
   'use strict';
 
   function countdownService($window) {
-    var service = Object.create($window.EventEmitter.prototype),
+    var service = $window.Object.create($window.EventEmitter.prototype),
       Math = $window.Math,
       timer,
       timerInterval = 1001,
       lastDate,
       countdownModelsTable = {};
-
 
     service.convertDateRangeStringToMs = convertDateRangeStringToMs;
     service.getTimeRangeAsObject = getTimeRangeAsObject;
@@ -129,8 +132,7 @@
   }
 
   countdownService.$inject = [
-    '$window',
-    'EventEmitter'
+    '$window'
   ];
 
   angular.module('tkdCountdown').factory('tkdcountdownService', countdownService);

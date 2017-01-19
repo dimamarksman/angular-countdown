@@ -1,20 +1,25 @@
+/*
+ * CountdownModel directive.
+ * Required to enable countdown logic.
+ */
+
 (function (angular) {
   'use strict';
 
-  function CountdownModelCtrl($scope, $attrs, $parse, $log, $window, $timeout, countdownService) {
+  function CountdownModelCtrl($scope, $attrs, $parse, $log, $window, $timeout, tkdcountdownService) {
     var vm = this,
       timeRange = 0,
-      onElapse = $parse($attrs.onElapse),
-      modelIdSetter = $parse($attrs.countdownModelId).assign;
+      onElapse = $parse($attrs.tkdOnElapse),
+      modelIdSetter = $parse($attrs.tkdCountdownModelId).assign;
 
     vm.id = $window.Math.random().toString().slice(2);
 
-    vm.timeRangeObj = countdownService.getTimeRangeAsObject(0);
+    vm.timeRangeObj = tkdcountdownService.getTimeRangeAsObject(0);
 
-    // Called when the view needs to be updated. 
-    // It is expected that the user of the countdown-model
-    // directive will implement this method.
-    vm.render = function () {};
+    vm.render = function () {
+      // It's called when the view needs to be updated. 
+      // It's expected that the user of the countdown-model directive will implement this method.
+    };
 
     vm.destroy = function () {
       stopCounter();
@@ -24,9 +29,9 @@
       return vm.timeRangeObj;
     };
 
-    $scope.$watch($attrs.countdownModel, function (newValue) {
+    $scope.$watch($attrs.tkdCountdownModel, function (newValue) {
       if (newValue) {
-        newValue = countdownService.convertDateRangeStringToMs(newValue);
+        newValue = tkdcountdownService.convertDateRangeStringToMs(newValue);
 
         if (typeof newValue != 'number' || $window.isNaN(newValue)) {
           return $log.error('countdownTimer directive: parsing error.');
@@ -43,7 +48,7 @@
     });
 
     $scope.$on('$destroy', function () {
-      countdownService.unregisterCountdownModel(vm.id);
+      tkdcountdownService.unregisterCountdownModel(vm.id);
       vm.destroy();
     });
 
@@ -52,15 +57,15 @@
       modelIdSetter($scope, vm.id);
     }
 
-    // Register model in countdownService
-    countdownService.registerCountdownModel(vm.id, vm);
+    // Register model in tkdcountdownService
+    tkdcountdownService.registerCountdownModel(vm.id, vm);
 
     function startCounter() {
-      countdownService.on('tick', tick);
+      tkdcountdownService.on('tick', tick);
     }
 
     function stopCounter() {
-      countdownService.off('tick', tick);
+      tkdcountdownService.off('tick', tick);
     }
 
     function tick(event) {
@@ -75,7 +80,7 @@
     }
 
     function preRender(time) {
-      vm.timeRangeObj = countdownService.getTimeRangeAsObject(time);
+      vm.timeRangeObj = tkdcountdownService.getTimeRangeAsObject(time);
       vm.render(vm.timeRangeObj, time);
     }
   }
@@ -87,7 +92,7 @@
     '$log',
     '$window',
     '$timeout',
-    'countdownService'
+    'tkdcountdownService'
   ];
 
   function countdownModel() {
